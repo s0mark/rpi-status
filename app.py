@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 import json
 import os
+import random
 
 app = Flask(__name__)
 
@@ -12,27 +13,30 @@ def execute(command, args=None):
 		arguments = " " + " ".join(list(map(str, args)))
 	return os.popen("bash " + SCRIPT_DIR + command + arguments).read()
 
+def rand(a, b, precision=2):
+	return float(round(random.random() * (b - a) + a, 2))
+
 def CPUtemp():
-	return float(execute("cputemp.sh"))
+	return 42.0 + rand(-5.0, 5.0) # float(execute("cputemp.sh"))
 
 def GPUtemp():
-	return float(execute("gputemp.sh"))
+	return 42.0 + rand(-5.0, 5.0) # float(execute("gputemp.sh"))
 
 def CPUusage():
-	return float(execute("cpuusage.sh"))
+	return 10.0 + rand(-8.0, 10.0) # float(execute("cpuusage.sh"))
 
 def memusage():
-	return list(map(int, execute("memusage.sh").split(" ")))
+	return [113401 + random.randint(-100000, 2000000), 3986748] # list(map(int, execute("memusage.sh").split(" ")))
 
 def storageusage():
-	return list(map(int, execute("storageusage.sh").split(" ")))
+	return [6998716, 28546725] # list(map(int, execute("storageusage.sh").split(" ")))
 
 def strfloat(strpair):
 	pair = strpair.split(" ")
 	return (pair[0], float(pair[1]))
 
 def topprocesses(args=None):
-	return list(map(strfloat, execute("topproc.sh", args).split("#")[:-1]))
+	return [["alma", rand(0.5, 20.0)], ["korte", rand(0.5, 20.0)], ["banan", rand(0.5, 20.0)], ["eper", rand(0.5, 20.0)], ["szilva", rand(0.5, 20.0)]] # list(map(strfloat, execute("topproc.sh", args).split("#")[:-1]))
 
 @app.route('/temp')
 def temp():
