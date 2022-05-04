@@ -27,12 +27,12 @@ def memusage():
 def storageusage():
 	return list(map(int, execute("storageusage.sh").split(" ")))
 
-def strfloat(strpair):
-	pair = strpair.split(" ")
-	return (pair[0], float(pair[1]))
+def process(strtriplet):
+	triplet = strtriplet.strip().split(" ")
+	return (int(triplet[0]), triplet[1], float(triplet[2]))
 
 def topprocesses(args=None):
-	return list(map(strfloat, execute("topproc.sh", args).split("#")[:-1]))
+	return list(map(process, execute("topproc.sh", args).split("#")[:-1]))
 
 @app.route('/temp')
 def temp():
@@ -80,4 +80,4 @@ def usagestorage():
 def top():
 	count = request.args.get('n')
 	args = [int(count)] if count else None
-	return jsonify(list(map(lambda data: {data[0]: data[1]}, topprocesses(args))))
+	return jsonify(list(map(lambda data: {'pid': data[0], 'name': data[1], 'usage': data[2]}, topprocesses(args))))

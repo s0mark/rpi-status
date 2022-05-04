@@ -17,5 +17,5 @@ The application offers the following system info about the Raspberry Pi:
 | /usage/cpu | CPU usage percentage | `{"usage": <usage>}` |
 | /usage/memory | Available and total memory in bytes | `{"total": <size>, "used": <size>}` |
 | /usage/storage | Available and total storage in bytes | `{"total": <size>, "used": <size>}` |
-| /top | Top 5 processes and their CPU usage | `[{<process_name>: <usage>}, ...]` |
-| /top?n=\<n\> | Top `n` processes and their CPU usage | `[{<process_name>: <usage>}, ...]` |
+| /top | Top 5 processes and their CPU usage | `[{"pid": <PID>, "name": <name>, "usage": <usage>}, ...]` |
+| /top?n=\<n\> | Top `n` processes and their CPU usage | `[{"pid": <PID>, "name": <name>, "usage": <usage>}, ...]` |
