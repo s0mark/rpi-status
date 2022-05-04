@@ -5,38 +5,31 @@ import random
 
 app = Flask(__name__)
 
-SCRIPT_DIR = "/home/pi/Documents/status/scripts/"
-
-def execute(command, args=None):
-	arguments = ""
-	if args:
-		arguments = " " + " ".join(list(map(str, args)))
-	return os.popen("bash " + SCRIPT_DIR + command + arguments).read()
-
 def rand(a, b, precision=2):
 	return float(round(random.random() * (b - a) + a, 2))
 
 def CPUtemp():
-	return 42.0 + rand(-5.0, 5.0) # float(execute("cputemp.sh"))
+	return 42.0 + rand(-5.0, 5.0)
 
 def GPUtemp():
-	return 42.0 + rand(-5.0, 5.0) # float(execute("gputemp.sh"))
+	return 42.0 + rand(-5.0, 5.0)
 
 def CPUusage():
-	return 10.0 + rand(-8.0, 10.0) # float(execute("cpuusage.sh"))
+	return 10.0 + rand(-8.0, 10.0)
 
 def memusage():
-	return [113401 + random.randint(-100000, 2000000), 3986748] # list(map(int, execute("memusage.sh").split(" ")))
+	return [113401 + random.randint(-100000, 2000000), 3986748]
 
 def storageusage():
-	return [6998716, 28546725] # list(map(int, execute("storageusage.sh").split(" ")))
-
-def strfloat(strpair):
-	pair = strpair.split(" ")
-	return (pair[0], float(pair[1]))
+	return [6998716, 28546725]
 
 def topprocesses(args=None):
-	return [["alma", rand(0.5, 20.0)], ["korte", rand(0.5, 20.0)], ["banan", rand(0.5, 20.0)], ["eper", rand(0.5, 20.0)], ["szilva", rand(0.5, 20.0)]] # list(map(strfloat, execute("topproc.sh", args).split("#")[:-1]))
+	names = ["alma", "korte", "banan", "eper", "szilva"]
+	processes = []
+	count = args if args else 5
+	for i in range(count):
+		processes.append([i, names[i % 5], rand(0.5, 100.0 / count)])
+	return processes
 
 @app.route('/temp')
 def temp():
@@ -84,4 +77,4 @@ def usagestorage():
 def top():
 	count = request.args.get('n')
 	args = [int(count)] if count else None
-	return jsonify(list(map(lambda data: {data[0]: data[1]}, topprocesses(args))))
+	return jsonify(list(map(lambda data: {"pid": data[0], "name": data[1], "usage": data[2]}, topprocesses(args))))
