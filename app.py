@@ -34,6 +34,10 @@ def process(strtriplet):
 def topprocesses(args=None):
 	return list(map(process, execute("topproc.sh", args).split("#")[:-1]))
 
+@app.route('/')
+def statusOk():
+	return jsonify({'status': "ok"})
+
 @app.route('/temp')
 def temp():
 	return jsonify({'cpu': CPUtemp(), 'gpu': GPUtemp()})

@@ -8,8 +8,9 @@ To run the application, execute the `flask run` command in the root directory of
 
 # Description
 The application offers the following system info about the Raspberry Pi:
-| Path | Information | Format |
+| Path | Information | Format |
 | --- | --- | --- |
+| / | Status check | `{"status": "ok"}` |
 | /temp | CPU and GPU temperature | `{"cpu": <temp>, "gpu": <temp>}` |
 | /temp/cpu | CPU temperature | `{"temp": <temp>}` |
 | /temp/gpu | GPU temperature | `{"temp": <temp>}` |
