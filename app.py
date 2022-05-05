@@ -26,10 +26,14 @@ def storageusage():
 def topprocesses(args=None):
 	names = ["alma", "korte", "banan", "eper", "szilva"]
 	processes = []
-	count = args if args else 5
+	count = args[0] if args else 5
 	for i in range(count):
 		processes.append([i, names[i % 5], rand(0.5, 100.0 / count)])
 	return processes
+
+@app.route('/')
+def statusOk():
+	return jsonify({'status': "ok"})
 
 @app.route('/temp')
 def temp():
