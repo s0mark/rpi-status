@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-SCRIPT_DIR = "/home/pi/Documents/status/scripts/"
+SCRIPT_DIR = "scripts/"
 
 def execute(command, args=None):
 	arguments = ""
