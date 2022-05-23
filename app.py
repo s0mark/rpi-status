@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import json
 import os
 import random
 
 app = Flask(__name__)
+CORS(app)
 
 def rand(a, b, precision=2):
 	return float(round(random.random() * (b - a) + a, 2))

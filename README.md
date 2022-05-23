@@ -2,7 +2,7 @@
 A simple flask web application to make basic system status info of a Raspberry Pi accessible in JSON format, through HTTP GET requests.
 
 # Usage
-The application requires the following tools to be installed to work properly: `flask`, `vcgencmd`.
+The application requires the following tools to be installed to work properly: `flask`, `flask-cors`, `vcgencmd`.
 
 To run the application, execute the `flask run` command in the root directory of the project.
 
